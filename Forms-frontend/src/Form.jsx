@@ -9,7 +9,6 @@ const Form = () => {
     college: "",
     department: "",
     year: "",
-   
   });
 
   const handleChange = (e) => {
@@ -17,14 +16,12 @@ const Form = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/submit",
+        "https://gfhgvjhj.vercel.app/submit",
         formData
       );
       alert(response.data);
@@ -85,8 +82,6 @@ const Form = () => {
           onChange={handleChange}
           className="w-full p-2 border border-gray-300 rounded"
         />
-
-      
 
         <button
           type="submit"
