@@ -10,7 +10,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // Add this to parse form data
 
-
 // MongoDB connection
 mongoose
   .connect(
@@ -20,20 +19,24 @@ mongoose
   .catch((err) => console.log(err));
 
 // Schema Definition
-const formSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  mobile: String,
-  college: String,
-  department: String,
-  year: String
-},{timestamps:true});
+const formSchema = new mongoose.Schema(
+  {
+    name: { type: String, reqired: true, lowercase: true },
+    email: { type: String, reqired: true, lowercase: true },
+    mobile: { type: String, reqired: true, lowercase: true },
+
+    college: { type: String, reqired: true, lowercase: true },
+    department: { type: String, reqired: true, lowercase: true },
+    year: { type: String, reqired: true, lowercase: true },
+  },
+  { timestamps: true }
+);
 
 const Form = mongoose.model("Form", formSchema);
 
 // POST endpoint to submit the form data
 app.post("/submit", async (req, res) => {
-  const { name, email, mobile, college, department, year } =req.body;
+  const { name, email, mobile, college, department, year } = req.body;
 
   const formData = new Form({
     name,
@@ -42,7 +45,6 @@ app.post("/submit", async (req, res) => {
     college,
     department,
     year,
-    
   });
 
   try {
